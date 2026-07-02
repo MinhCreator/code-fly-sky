@@ -6,11 +6,20 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <a href="/" className="flex justify-center ">
-            <Image src="/logov2.svg" width={45} height={49} className="w-auto h-auto" alt="logo"/>  
+              <Image
+                src="/logov2.svg"
+                width={45}
+                height={49}
+                className="w-auto h-auto"
+                alt="logo"
+              />
             </a>
             <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-16 mb-10 border-b border-gray-200">
               <li>
-                <a href="#" className="text-gray-800 hover:text-gray-900">
+                <a
+                  href="#"
+                  className="text-gray-800 hover:text-gray-900 hover:italic"
+                >
                   Pagedone
                 </a>
               </li>
@@ -38,7 +47,7 @@ export function Footer() {
             <div className="flex space-x-10 justify-center items-center mb-14">
               <a
                 href="#"
-                className="block  text-gray-900 transition-all duration-500 hover:text-indigo-600 "
+                className="block text-gray-900 transition-all duration-500 hover:text-indigo-600 "
               >
                 <svg
                   className="w-[1.688rem] h-[1.688rem]"
@@ -54,7 +63,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="block  text-gray-900 transition-all duration-500 hover:text-indigo-600 "
+                className="block text-gray-900 transition-all duration-500 hover:text-indigo-600 "
               >
                 <svg
                   className="w-[1.688rem] h-[1.688rem] "
@@ -70,7 +79,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="block  text-gray-900 transition-all duration-500 hover:text-indigo-600 "
+                className="block text-gray-900 transition-all duration-500 hover:text-indigo-600 "
               >
                 <svg
                   className="w-[0.938rem] h-[1.625rem]"
@@ -86,7 +95,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="block  text-gray-900 transition-all duration-500 hover:text-indigo-600 "
+                className="block text-gray-900 transition-all duration-500 hover:text-indigo-600 "
               >
                 <svg
                   className="w-[1.875rem] h-[1.375rem]"
@@ -104,8 +113,7 @@ export function Footer() {
               </a>
             </div>
             <span className="text-lg text-gray-500 text-center block">
-              ©<a href="/">code fly sky</a> 2026, All rights
-              reserved.
+              ©<a href="/">Code fly sky</a>@2026, All rights reserved.
             </span>
           </div>
         </div>

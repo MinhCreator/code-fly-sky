@@ -2,116 +2,104 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import { navbarMetadata } from "@/lib/navbarMetadata";
-
+import { cn } from "@/lib/utils";
 export function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const [menuHeight, setMenuHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    if (isMobileMenuOpen && mobileMenuRef.current) {
-      setMenuHeight(mobileMenuRef.current.scrollHeight);
-    } else {
-      setMenuHeight(0);
-    }
-  }, [isMobileMenuOpen]);
-
+  // navbar state for mobile
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isClose, setIsClose] = useState(false);
   return (
     <>
-      <header className="bg-white shadow-lg py-4 sticky top-0 z-50">
-        <div className="container mx-auto flex items-center justify-between px-4">
-          {/* <!-- Logo --> */}
-          <a
-            href="#"
-            className="flex items-center text-[#4F46E5] hover:text-[#6366F1]"
+      <header className="flex items-center justify-between px-6 py-3 md:py-4 shadow max-w-5xl rounded-full mx-auto w-full bg-white">
+        <a href="/">
+          <Image
+            src="/logov2.svg"
+            alt="af"
+            width={14}
+            height={14}
+            className="w-auto h-auto"
+          />
+        </a>
+        <nav
+          id="menu"
+          className={cn(
+            "max-md:absolute max-md:top-0 max-md:left-0 max-md:overflow-hidden items-center justify-center max-md:h-full max-md:w-0 transition-[width] bg-white/50 backdrop-blur flex-col md:flex-row flex gap-8 text-gray-900 text-sm font-normal",
+            `${isOpenMenu ? "max-md:w-full" : "max-md:w-0"}`,
+          )}
+        >
+          {navbarMetadata.map((item, index) => {
+            return (
+              <a
+                key={index}
+                className="inline-flex gap-2 items-center hover:text-indigo-600"
+                href={item.href}
+              >
+                {item.icon}
+                <span>{item.title}</span>
+              </a>
+            );
+          })}
+
+          {/* Mobile button */}
+          <button
+            onClick={() => setIsOpenMenu(false)}
+            className="md:hidden text-gray-600"
           >
-            <Image
-              src="/logov2.svg"
-              alt="brand"
-              className="w-auto h-auto"
-              width={10}
-              height={49}
-            />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </nav>
+        <div className="flex items-center space-x-4">
+          <button className="size-8 flex items-center justify-center hover:bg-gray-100 transition border border-slate-300 rounded-md">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.5 10.39a2.889 2.889 0 1 0 0-5.779 2.889 2.889 0 0 0 0 5.778M7.5 1v.722m0 11.556V14M1 7.5h.722m11.556 0h.723m-1.904-4.596-.511.51m-8.172 8.171-.51.511m-.001-9.192.51.51m8.173 8.171.51.511"
+                stroke="#353535"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <a
+            className="hidden md:flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition"
+            href="#"
+          >
+            Sign up
           </a>
 
-          {/* <!-- Mobile Menu Button (Hidden on larger screens) --> */}
-          <div className="md:hidden">
-            <button
-              id="menu-toggle"
-              onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className="text-gray-800 hover:text-[#4F46E5] focus:outline-none transition-colors duration-300"
+          {/* Mobile button */}
+          <button
+            onClick={() => setIsOpenMenu(true)}
+            className="md:hidden text-gray-600"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* <!-- Desktop Navigation (Hidden on smaller screens) --> */}
-          <nav className="hidden md:block">
-            <ul className="flex space-x-8">
-              {navbarMetadata.map((item, index) => (
-                <li key={index}>
-                  <a
-                    href={item.href}
-                    className="hover:text-[#4F46E5] transition-colors duration-300"
-                    >
-                    {item.icon}
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="#"
-                  className="bg-[#439af7] hover:bg-[#2389f7] text-white px-4 py-2 rounded-md transition-colors duration-300"
-                >
-                  Get Started
-                </a>
-              </li>
-            </ul>
-          </nav>
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
-
-        {/* <!-- Mobile Menu (Hidden by default) --> */}
-        <nav
-          id="mobile-menu"
-          ref={mobileMenuRef}
-          style={{
-            height: menuHeight ? `${menuHeight}px` : "0",
-            overflow: "hidden",
-          }}
-          className={`${isMobileMenuOpen ? "" : "hidden"} md:hidden bg-gray-50 border-t border-gray-200 transition-height duration-300 ease-in-out`}
-        >
-          <ul className="px-4 py-2">
-            {navbarMetadata.map((item, index) => (
-              <li key={index}>
-                {item.icon}
-                <a href={item.href} className="block py-2 hover:text-[#4F46E5]">
-                  {item.title}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a
-                href="#"
-                className="block py-2 bg-[#439af7] hover:bg-[#2389f7] text-white rounded-md text-center transition-colors duration-300"
-              >
-                Get Started
-              </a>
-            </li>
-          </ul>
-        </nav>
       </header>
     </>
   );
